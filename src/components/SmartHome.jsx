@@ -1,7 +1,20 @@
 import { Light } from "./Light";
+import { useState } from "react";
 
-export function SmartHome(props) {
-  const { onFirstToggle, onSecondToggle, onThirdToggle } = props;
+export function SmartHome() {
+  const [firstLightOn, setFirstLightOn] = useState(false);
+  const [secondLightOn, setSecondLightOn] = useState(false);
+  const [thirdLightOn, setThirdLightOn] = useState(false);
+
+  const handleFirstToggle = () => {
+    setFirstLightOn(!firstLightOn);
+  };
+  const handleSecondToggle = () => {
+    setSecondLightOn(!secondLightOn);
+  };
+  const handleThirdToggle = () => {
+    setThirdLightOn(!thirdLightOn);
+  };
 
   return (
     <section

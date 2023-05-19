@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, createContext } from "react";
 import { MainControls } from "./components/MainControls";
 import { SmartHome } from "./components/SmartHome";
-import { SmartHomeContext } from "./SmartHomeContext";
+
+export const SmartHomeContext = createContext();
 
 export function App() {
-  const [lights] = useContext(SmartHomeContext);
   const [firstLightOn, setFirstLightOn] = useState(false);
   const [secondLightOn, setSecondLightOn] = useState(false);
   const [thirdLightOn, setThirdLightOn] = useState(true);
@@ -24,15 +24,17 @@ export function App() {
   return (
     <div>
       <SmartHomeContext.Provider
-        value={{ lights: [firstLightOn, secondLightOn, thirdLightOn] }}
+        value={{
+          firstLightOn,
+          secondLightOn,
+          thirdLightOn,
+          toggleFirstLight: () => setFirstLightOn(!firstLightOn),
+          toggleSecondLight: () => setSecondLightOn(!secondLightOn),
+          toggleThirdLight: () => setThirdLightOn(!thirdLightOn),
+        }}
       >
         <MainControls onAllOnClick={handleAllOn} onAllOffClick={handleAllOff} />
-
-        <SmartHome
-          onFirstToggle={() => setFirstLightOn(!firstLightOn)}
-          onSecondToggle={() => setSecondLightOn(!secondLightOn)}
-          onThirdToggle={() => setThirdLightOn(!thirdLightOn)}
-        />
+        <SmartHome />
       </SmartHomeContext.Provider>
     </div>
   );
